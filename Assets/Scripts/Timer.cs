@@ -1,31 +1,57 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
-
 {
-    //the valrble for countdown that can be changed
-    [SerializeField] float count;
+    [Header("Component")]
+    public TextMeshProUGUI timerText;
 
+    [Header("Timer Settings")]
+    public float currentTime;
+    public bool countDown;
+
+    [Header("Limit Settings")]
+    public bool hasLimit;
+    public float timerLimit;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+
+    }
 
     // Update is called once per frame
     void Update()
     {
-        //calls for the countDown method
-        countDown();
+        //This executes the first and second block of code based on whether "countDown" is true or false
+        currentTime = countDown ? currentTime -= Time.deltaTime : currentTime += Time.deltaTime;
+
+        //Determines when to stop the timer relative to if it's counting up or down
+        if (hasLimit && ((countDown && currentTime <= timerLimit) || (!countDown && currentTime >= timerLimit)))
+        {
+            currentTime = timerLimit;
+            SetTimerText();
+            timerText.color = Color.yellow;
+            enabled = false;
+        }
+
+        //Change scene to "End" if timer runs out
+        if (currentTime == 0)
+        {
+            SceneManager.LoadScene(3);
+        }
+
+        //Update timer text
+        SetTimerText();
     }
 
-    //the countdown method
-    private void countDown()
+    private void SetTimerText()
     {
-        /*use the valrble form count and subtracts form time.time to see if it
-        is a zero. Note there is a bit of a problm with the float in which the sceneManager will not run*/
-        if (count - Time.time == 0)
-        {
-            //loads the scene "End" if count is zero
-            SceneManager.LoadScene("End");
-        }
+        //Render to text
+        timerText.text = currentTime.ToString("000.0");
     }
 }
+
