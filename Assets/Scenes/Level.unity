@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Timer
   timerText: {fileID: 1339573400}
-  currentTime: 60
+  currentTime: 120
   countDown: 1
   hasLimit: 1
   timerLimit: 0
