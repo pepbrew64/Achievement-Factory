@@ -11,6 +11,8 @@ public class ranTrophy : MonoBehaviour
     private int nextPoint;
     //crates the navMesh agent variable
     private NavMeshAgent agent;
+    //allows for the spin speed to be changed
+    [SerializeField] float turn = 0f;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,6 +41,8 @@ public class ranTrophy : MonoBehaviour
         agent.destination = _Points[nextPoint].position;
         //Choose which point to go next and put it into the nextPont variable
         nextPoint = (nextPoint + 1) % Random.Range(0, _Points.Length);
+        //Truns the gameObject
+        transform.Rotate(0, turn, 0);
     }
 
     // Update is called once per frame

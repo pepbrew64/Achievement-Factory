@@ -11,6 +11,8 @@ public class leavePlayerTrophy : MonoBehaviour
     private int nextTrophyPoint;
     //crates the navMesh agent variable
     private NavMeshAgent trophyAgent;
+    //allows for the spin speed to be changed
+    [SerializeField] float turn = 0f;
 
     private void Start()
     {
@@ -26,7 +28,7 @@ public class leavePlayerTrophy : MonoBehaviour
         trophyAgent.autoBraking = false;
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         //see if the gameObject has the Player tag
         if (other.gameObject.tag == "Player")
@@ -45,5 +47,7 @@ public class leavePlayerTrophy : MonoBehaviour
         trophyAgent.destination = goToPonts[nextTrophyPoint].position;
         //Choose which point to go next and put it into the nextTrophyPoint variable
         nextTrophyPoint = (nextTrophyPoint + 1) % Random.Range(0, goToPonts.Length);
+        //Truns the gameObject
+        transform.Rotate(0, turn, 0);
     }
 }
