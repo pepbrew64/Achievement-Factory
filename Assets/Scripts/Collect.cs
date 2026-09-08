@@ -15,6 +15,7 @@ public class Collect : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             scoreManager.IncreaseScore();
+            AudioManager.Instance.Play(AudioManager.SoundType.Collect);
             gameObject.SetActive(false);
         }
     }
