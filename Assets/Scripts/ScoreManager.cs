@@ -19,6 +19,10 @@ public class ScoreManager : MonoBehaviour
         score += 5;
         scoreText.text = score + " %";
 
+        //
+        string dataToKeep = scoreText.text;
+        StaticData.valueToKeep = dataToKeep;
+
         // If you get 100% or more somehow, it'll send you to the results screen
         if (score >= 100)
         {
